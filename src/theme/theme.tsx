@@ -3,6 +3,7 @@ export interface ThemeProps {
         white: string;
         black: string;
         base: string;
+        error: string;
         baseContrast: string;
         text: string;
         primary: { [key: number]: string };
@@ -54,6 +55,7 @@ export const lightTheme: ThemeProps = {
         black: "#121212",
         base: "#fdfdfd",
         baseContrast: "#ffffff",
+        error: "#790000",
         text: "#222222",
         primary: { 500: "#e75e09", 600: "#b54601" },
         secondary: { 500: "#ce0b4f" }
@@ -67,6 +69,7 @@ export const darkTheme: ThemeProps = {
         black: "#121212",
         base: "#232323",
         baseContrast: "#0a0a0a",
+        error: "#f85374",
         text: "#fdfdfd",
         primary: { 500: "#e75e09", 600: "#b54601" },
         secondary: { 500: "#ce0b4f" }

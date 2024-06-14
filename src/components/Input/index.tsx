@@ -1,15 +1,17 @@
-import { InputHTMLAttributes, forwardRef } from "react";
+import { InputHTMLAttributes, Ref, forwardRef } from "react";
 import StyledInput from "./styled";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     label: string;
+    error?: string;
 }
 
-const Input = forwardRef(function Input({ label, ...rest }: Props) {
+const Input = forwardRef(function ({ label, error, ...rest }: Props, ref: Ref<HTMLInputElement>) {
     return (
         <StyledInput>
-            <strong>{label}</strong>
-            <input {...rest} />
+            <span>{label}</span>
+            <input {...rest} ref={ref} />
+            {error && <p className="error-message">{error}</p>}
         </StyledInput>
     );
 });

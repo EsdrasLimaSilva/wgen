@@ -18,6 +18,12 @@ const StyledInput = styled.label`
             outline: 1.4px solid ${(props) => props.theme.colors.black};
         }
     }
+
+    .error-message {
+        font-size: ${(props) => props.theme.fontSize.md};
+        font-style: italic;
+        color: ${(props) => props.theme.colors.error};
+    }
 `;
 
 export default StyledInput;
