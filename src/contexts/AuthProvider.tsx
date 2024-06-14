@@ -1,4 +1,4 @@
-import { User, signInWithEmailAndPassword } from "firebase/auth";
+import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { firebaseAuth } from "../config/firebaseConfig";
 import { FirebaseError } from "firebase/app";
@@ -8,9 +8,9 @@ interface ContextProps {
     isLoading: boolean;
     error: string | null;
     isAuthenticated: boolean;
-    signIn: (email: string, password: string) => Promise<void>;
+    signIn: (email: string, password: string) => Promise<User | null>;
     signOut: () => Promise<void>;
-    register: (email: string, password: string) => Promise<void>;
+    register: (email: string, password: string) => Promise<User | null>;
 }
 
 const AuthContext = createContext<ContextProps>({} as ContextProps);
@@ -52,19 +52,35 @@ export default function AuthProvider({ children }: Props) {
         return "Unable to proceed";
     };
 
-    const register = async (email: string, password: string) => {};
+    const register = async (email: string, password: string) => {
+        try {
+            setAuth((prev) => ({ ...prev, isLoading: true }));
+            const userCredential = await createUserWithEmailAndPassword(firebaseAuth, email, password);
+            const user = userCredential.user;
+            setAuth((prev) => ({ ...prev, user, error: null }));
+            return user;
+        } catch (e) {
+            const error = e as FirebaseError;
+            const errorMessage = getCodeErrorMessage(error.code);
+            setAuth((prev) => ({ ...prev, error: errorMessage }));
+            return null;
+        } finally {
+            setAuth((prev) => ({ ...prev, isLoading: false }));
+        }
+    };
 
     const signIn = async (email: string, password: string) => {
         try {
             setAuth((prev) => ({ ...prev, isLoading: true }));
             const userCredential = await signInWithEmailAndPassword(firebaseAuth, email, password);
             const user = userCredential.user;
-
             setAuth((prev) => ({ ...prev, user, error: null }));
+            return user;
         } catch (e) {
             const error = e as FirebaseError;
             const errorMessage = getCodeErrorMessage(error.code);
             setAuth((prev) => ({ ...prev, error: errorMessage }));
+            return null;
         } finally {
             setAuth((prev) => ({ ...prev, isLoading: false }));
         }

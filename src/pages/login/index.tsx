@@ -20,16 +20,17 @@ export default function Login() {
     };
 
     const handleSignIn = async (email: string, password: string) => {
-        await signIn(email, password);
+        const user = await signIn(email, password);
+        if (user) navigate("/");
     };
 
     const handleRegister = async (email: string, password: string) => {
-        await register(email, password);
+        const user = await register(email, password);
+        if (user) navigate("/");
     };
 
     useEffect(() => {
         if (!isLoading && AuthError) toast(AuthError, { theme: "dark", type: "error" });
-        if (isAuthenticated) navigate("/");
     }, [isLoading]);
 
     if (isLoading)
