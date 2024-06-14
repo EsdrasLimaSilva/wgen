@@ -20,8 +20,8 @@ const StyledInput = styled.label`
     }
 
     .error-message {
-        font-size: ${(props) => props.theme.fontSize.md};
-        font-style: italic;
+        font-size: ${(props) => props.theme.fontSize.sm};
+        font-weight: bold;
         color: ${(props) => props.theme.colors.error};
     }
 `;

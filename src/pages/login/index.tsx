@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
 import StyledLogin from "./styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignInCard from "../../components/SignInCard";
 import RegisterCard from "../../components/RegisterCard";
+import { useAuth } from "../../contexts/AuthProvider";
+import { ImSpinner8 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Login() {
     const [mode, setMode] = useState<"signin" | "register">("signin");
+    const { signIn, register, isLoading, isAuthenticated, error: AuthError } = useAuth();
+    const navigate = useNavigate();
 
     const toggleMode = () => {
         setMode((prev) => {
@@ -14,9 +19,28 @@ export default function Login() {
         });
     };
 
-    const handleSignIn = async (email: string, password: string) => {};
+    const handleSignIn = async (email: string, password: string) => {
+        await signIn(email, password);
+    };
 
-    const handleRegister = async (email: string, password: string) => {};
+    const handleRegister = async (email: string, password: string) => {
+        await register(email, password);
+    };
+
+    useEffect(() => {
+        if (!isLoading && AuthError) toast(AuthError, { theme: "dark", type: "error" });
+        if (isAuthenticated) navigate("/");
+    }, [isLoading]);
+
+    if (isLoading)
+        return (
+            <StyledLogin>
+                <span className="spinner-container">
+                    <p>Now loading</p>
+                    <ImSpinner8 className="spinner" />
+                </span>
+            </StyledLogin>
+        );
 
     return (
         <StyledLogin>

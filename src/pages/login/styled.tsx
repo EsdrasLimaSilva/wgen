@@ -24,12 +24,43 @@ const StyledLogin = styled.main`
         gap: ${({ theme }) => theme.sizes.lg};
     }
 
+    .login-error {
+        color: ${(props) => props.theme.colors.error};
+        font-size: ${(props) => props.theme.fontSize.lg};
+        font-weight: bold;
+    }
+
     .toggle-login-mode-btn {
         background-color: transparent;
         border: none;
         color: ${(props) => props.theme.colors.black};
         text-align: center;
         width: 100%;
+    }
+
+    .spinner-container {
+        align-items: center;
+        border-radius: ${(props) => props.theme.sizes.md};
+        color: ${(props) => props.theme.colors.white};
+        display: flex;
+        font-size: ${(props) => props.theme.fontSize.xll};
+        font-weight: bold;
+        gap: ${(props) => props.theme.sizes.sm};
+        padding: ${(props) => props.theme.sizes.md} ${(props) => props.theme.sizes.xll};
+
+        .spinner {
+            animation: spin 0.9s infinite;
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0);
+        }
+
+        100% {
+            transform: rotate(359deg);
+        }
     }
 `;
 

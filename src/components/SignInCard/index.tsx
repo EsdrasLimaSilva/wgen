@@ -11,7 +11,10 @@ interface Props {
 
 const schema = yup.object({
     password: yup.string().required("Password cannot be empty"),
-    email: yup.string().required("Email cannot be empty")
+    email: yup
+        .string()
+        .required("Email cannot be empty")
+        .test("isEmail", "Email must be valid", (value) => value.includes("@"))
 });
 
 export default function SignInCard({ handleSignIn }: Props) {
@@ -26,7 +29,7 @@ export default function SignInCard({ handleSignIn }: Props) {
         <StyledSignInCard>
             <h2>Sign in</h2>
             <form onSubmit={handleSubmit((data) => handleSignIn(data.email, data.password))}>
-                <Input label="Email" error={errors.email?.message} type="email" {...register("email")} />
+                <Input label="Email" error={errors.email?.message} type="text" {...register("email")} />
                 <Input
                     label="Password"
                     error={errors.password?.message}
