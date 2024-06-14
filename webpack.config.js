@@ -1,6 +1,7 @@
 const path = require("path");
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
     mode: "development",
@@ -10,7 +11,7 @@ module.exports = {
         path: path.join(__dirname, "/dist"),
         filename: "bundle.js"
     },
-    devServer: { static: "./dist", port: 3000 },
+    devServer: { static: "./dist", port: 3000, historyApiFallback: true },
     module: {
         rules: [
             { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
@@ -24,5 +25,5 @@ module.exports = {
     resolve: {
         extensions: [".tsx", ".jsx", ".ts", ".js"]
     },
-    plugins: [new HtmlWebpackPlugin({ template: "index.html" })]
+    plugins: [new HtmlWebpackPlugin({ template: "index.html" }), new Dotenv()]
 };
