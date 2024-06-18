@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAuth } from "../../contexts/AuthProvider";
 import StyledHome from "./styled";
 import HomeMenu from "../../components/HomeMenu";
+import Modal from "../../components/Modal";
 
 export default function Home() {
     const { isAuthenticated, isLoading } = useAuth();

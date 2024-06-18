@@ -1,13 +1,14 @@
 export interface ThemeProps {
     colors: {
-        white: string;
-        black: string;
         base: string;
-        error: string;
         baseContrast: string;
-        text: string;
+        black: string;
+        error: string;
         primary: { [key: number]: string };
         secondary: { [key: number]: string };
+        text: string;
+        transparent: string;
+        white: string;
     };
 
     sizes: {
@@ -51,27 +52,29 @@ export const lightTheme: ThemeProps = {
     sizes: { ...sizes },
     fontSize: { ...fontSize },
     colors: {
-        white: "#ffffff",
-        black: "#121212",
         base: "#fdfdfd",
         baseContrast: "#ffffff",
+        black: "#121212",
         error: "#790000",
-        text: "#222222",
         primary: { 500: "#e75e09", 600: "#b54601" },
-        secondary: { 500: "#ce0b4f", 600: "#9e005c" }
+        secondary: { 500: "#ce0b4f", 600: "#9e005c" },
+        text: "#222222",
+        transparent: "#22222230",
+        white: "#ffffff"
     }
 };
 export const darkTheme: ThemeProps = {
     sizes: { ...sizes },
     fontSize: { ...fontSize },
     colors: {
-        white: "#ffffff",
-        black: "#121212",
         base: "#232323",
         baseContrast: "#0a0a0a",
+        black: "#121212",
         error: "#f85374",
-        text: "#fdfdfd",
         primary: { 500: "#e75e09", 600: "#b54601" },
-        secondary: { 500: "#ce0b4f", 600: "#9c0037" }
+        secondary: { 500: "#ce0b4f", 600: "#9c0037" },
+        text: "#fdfdfd",
+        transparent: "#22222230",
+        white: "#ffffff"
     }
 };
