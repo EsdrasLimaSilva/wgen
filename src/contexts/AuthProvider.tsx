@@ -1,6 +1,6 @@
-import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
-import { firebaseAuth } from "../config/firebaseConfig";
+import { firebaseApp, firebaseAuth } from "../config/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 
 interface ContextProps {
@@ -9,7 +9,7 @@ interface ContextProps {
     error: string | null;
     isAuthenticated: boolean;
     signIn: (email: string, password: string) => Promise<User | null>;
-    signOut: () => Promise<void>;
+    logout: () => Promise<void>;
     register: (email: string, password: string) => Promise<User | null>;
 }
 
@@ -86,7 +86,19 @@ export default function AuthProvider({ children }: Props) {
         }
     };
 
-    const signOut = async () => {};
+    const logout = async () => {
+        try {
+            setAuth((prev) => ({ ...prev, isLoading: true }));
+            await signOut(firebaseAuth);
+            setAuth((prev) => ({ ...prev, user: null, error: null }));
+        } catch (e) {
+            const error = e as FirebaseError;
+            const errorMessage = getCodeErrorMessage(error.code);
+            setAuth((prev) => ({ ...prev, error: errorMessage }));
+        } finally {
+            setAuth((prev) => ({ ...prev, isLoading: false }));
+        }
+    };
 
     useEffect(() => {
         loadAuth();
@@ -101,7 +113,7 @@ export default function AuthProvider({ children }: Props) {
                 error: auth.error,
                 register,
                 signIn,
-                signOut
+                logout
             }}
         >
             {children}

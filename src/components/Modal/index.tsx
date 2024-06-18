@@ -1,19 +1,21 @@
 import { MdClose } from "react-icons/md";
 import StyledModal from "./styled";
+import { ReactNode } from "react";
 
-export default function Modal() {
+interface Props {
+    title: string;
+    children: ReactNode;
+}
+
+export default function Modal({ title, children }: Props) {
     return (
         <StyledModal>
             <section className="content-container">
-                <header>
-                    <h1>Modal Title</h1>
-                    <button type="button" className="modal-close-btn">
-                        <MdClose />
-                    </button>
-                </header>
-                <main>
-                    <p>This is a random content</p>
-                </main>
+                <h1>{title}</h1>
+                <button type="button" className="modal-close-btn">
+                    <MdClose />
+                </button>
+                {children}
             </section>
         </StyledModal>
     );

@@ -13,7 +13,7 @@ export default function Home() {
         if (!isLoading && !isAuthenticated) navigate("/login");
     }, [isLoading]);
 
-    if (isLoading) return <main>Loading...</main>;
+    if (isLoading) return <StyledHome>Loading...</StyledHome>;
 
     if (isAuthenticated)
         return (
@@ -26,8 +26,8 @@ export default function Home() {
         );
 
     return (
-        <main>
+        <StyledHome>
             <p>Something went wrong</p>
-        </main>
+        </StyledHome>
     );
 }
