@@ -1,6 +1,8 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuth } from "../../contexts/AuthProvider";
+import StyledHome from "./styled";
+import HomeMenu from "../../components/HomeMenu";
 
 export default function Home() {
     const { isAuthenticated, isLoading } = useAuth();
@@ -14,11 +16,12 @@ export default function Home() {
 
     if (isAuthenticated)
         return (
-            <main>
-                <h2>Home</h2>
-                <p>You must be authenticated to see this content</p>
-                <Link to="/login">Login</Link>
-            </main>
+            <StyledHome>
+                <div className="home-container">
+                    <h2>Wgen</h2>
+                    <HomeMenu />
+                </div>
+            </StyledHome>
         );
 
     return (

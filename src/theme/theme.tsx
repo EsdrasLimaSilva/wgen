@@ -42,9 +42,9 @@ const fontSize = {
     xs: "0.82rem",
     sm: "0.9rem",
     md: "1rem",
-    lg: "1.2rem",
-    xl: "1.28rem",
-    xll: "1.4rem"
+    lg: "1.25rem",
+    xl: "1.4rem",
+    xll: "2.1rem"
 };
 
 export const lightTheme: ThemeProps = {
@@ -58,7 +58,7 @@ export const lightTheme: ThemeProps = {
         error: "#790000",
         text: "#222222",
         primary: { 500: "#e75e09", 600: "#b54601" },
-        secondary: { 500: "#ce0b4f" }
+        secondary: { 500: "#ce0b4f", 600: "#9e005c" }
     }
 };
 export const darkTheme: ThemeProps = {
@@ -72,6 +72,6 @@ export const darkTheme: ThemeProps = {
         error: "#f85374",
         text: "#fdfdfd",
         primary: { 500: "#e75e09", 600: "#b54601" },
-        secondary: { 500: "#ce0b4f" }
+        secondary: { 500: "#ce0b4f", 600: "#9c0037" }
     }
 };
