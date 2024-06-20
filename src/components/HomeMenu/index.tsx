@@ -3,9 +3,11 @@ import { IoMdAdd, IoMdExit } from "react-icons/io";
 import { MdJoinLeft } from "react-icons/md";
 import Notification from "../../utils/Notification";
 import { useAuth } from "../../contexts/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 export default function HomeMenu() {
     const { logout } = useAuth();
+    const navigate = useNavigate();
 
     const exit = async () => {
         const ok = await Notification.confirm("Exit", "Are you sure you want to exit?");
@@ -14,9 +16,13 @@ export default function HomeMenu() {
         }
     };
 
+    const createRoom = async () => {
+        navigate("/game");
+    };
+
     return (
         <StyledHomeMenu>
-            <button type="button">
+            <button type="button" onClick={createRoom}>
                 <IoMdAdd />
                 Create room
             </button>
