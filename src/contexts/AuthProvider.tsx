@@ -1,7 +1,14 @@
-import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import {
+    User,
+    createUserWithEmailAndPassword,
+    deleteUser,
+    signInWithEmailAndPassword,
+    signOut
+} from "firebase/auth";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 import { firebaseApp, firebaseAuth } from "../config/firebaseConfig";
 import { FirebaseError } from "firebase/app";
+import Api from "../api/Api";
 
 interface ContextProps {
     user: User | null;
@@ -57,7 +64,9 @@ export default function AuthProvider({ children }: Props) {
             setAuth((prev) => ({ ...prev, isLoading: true }));
             const userCredential = await createUserWithEmailAndPassword(firebaseAuth, email, password);
             const user = userCredential.user;
+            const token = await user.getIdToken();
             setAuth((prev) => ({ ...prev, user, error: null }));
+            await Api.createPlayer(user.uid, token);
             return user;
         } catch (e) {
             const error = e as FirebaseError;

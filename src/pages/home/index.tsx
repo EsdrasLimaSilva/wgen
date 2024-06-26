@@ -4,12 +4,21 @@ import { useAuth } from "../../contexts/AuthProvider";
 import StyledHome from "./styled";
 import HomeMenu from "../../components/HomeMenu";
 import Modal from "../../components/Modal";
+import Api from "../../api/Api";
 
 export default function Home() {
-    const { isAuthenticated, isLoading } = useAuth();
+    const { isAuthenticated, isLoading, user } = useAuth();
     const navigate = useNavigate();
 
+    const load = async () => {
+        if (!user) return;
+        const authToken = await user.getIdToken();
+        const data = await Api.getPlayer(user.uid, authToken);
+        console.log(data);
+    };
+
     useEffect(() => {
+        load();
         if (!isLoading && !isAuthenticated) navigate("/login");
     }, [isLoading]);
 
